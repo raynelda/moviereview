@@ -10,13 +10,21 @@ $(function() {
 			part: "snippet",
 			type: "video",
 			q: searchText,
-			maxResults: 3,
+			maxResults: 5,
 			publishedAfter: "2018-01-01T00:00:00Z"
 		});
 		//execute request
 		request.execute(function(response){
-			console.log(response);
-			//$('#testLoad').html(response);
+			var output;
+			$.each(response.items, function(i, item){
+				console.log(item);
+				var vdoTitle = item.snippet.title;
+
+				//append to testLoad
+				$('#testLoad').append(vdoTitle);
+
+			})
+
 		})
 
 	});
@@ -27,6 +35,7 @@ $(function() {
  	console.log(searchText);
  }
 
+//youtube API
 function init() {
 	gapi.client.setApiKey('AIzaSyCehyfqNLjp1iCtrPgoSQm5QOa7WI7EKYY');
 	gapi.client.load('youtube', 'v3', function() {
